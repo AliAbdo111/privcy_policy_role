@@ -23,12 +23,41 @@ padding: 28px;
 height: 200px;
 background: yellow;
 }
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
     </style>
     <script>
    async function deletAccount(event ){
       try {
-        let id =23
+       
         const email= document.getElementById('del');
+
+        let flageLoad = true ;
+        if (flageLoad){
+            document.body.innerHTML=`<div class="loader"></div>`
+        }else{
+            document.body.innerHTML="<h1>done</h1>"
+        }
+        let id =23
+    
         let res= await fetch(`https://almota5asesproject-acy9.onrender.com/users/${id}`,
         {
             method:'DELETE',
@@ -36,10 +65,14 @@ background: yellow;
                 'Content-type': 'application/json'
             },
            body: JSON.stringify(email) 
+        }  )
+        if(res.status===200){
+            document.body.innerHTML="<h1 >Thanks The Opration Done</h1>" 
+        }else{
+            document.body.innerHTML="<h1 >Please try again  and Enter Valid Email</h1>"
         }
-        )
-        console.log(res)
     } catch (error) {
+        document.body.innerHTML="<h1>Please try again in a few seconds </h1>"
         console.log(error)
       }
       }
@@ -52,8 +85,8 @@ background: yellow;
         </h1>
         <p style="padding: 8px;">Deleting your account will remove all information from our App . please Enter Email To cunfirm The Action . </p>
         <form action="" onsubmit="deletAccount()">
-            <input type="text" placeholder="Enter Your Email" style="padding: 6px;" name="del" id="del">
-            <input type="button" style="padding: 6px;" onclick="deletAccount()" value="Delete Account">
+            <input type="email" required  placeholder="Enter Your Email" style="padding: 6px;" name="del" id="del">
+            <input type="submit" style="padding: 6px;" onclick="" value="Delete Account">
         </form>
     </div>
 </body>
