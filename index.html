@@ -16,14 +16,33 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-    width: 300px;
-padding: 10px;
+width: 320px;
+border: solid yellowgreen 3px;
+border-radius: 12px;
+padding: 28px;
 height: 200px;
-background: floralwhite;
+background: yellow;
 }
     </style>
     <script>
-        fetch()
+   async function deletAccount(event ){
+      try {
+        let id =23
+        const email= document.getElementById('del');
+        let res= await fetch(`https://almota5asesproject-acy9.onrender.com/users/${id}`,
+        {
+            method:'DELETE',
+            headers:{
+                'Content-type': 'application/json'
+            },
+           body: JSON.stringify(email) 
+        }
+        )
+        console.log(res)
+    } catch (error) {
+        console.log(error)
+      }
+      }
     </script>
 </head>
 <body>
@@ -31,10 +50,10 @@ background: floralwhite;
     <div class="section">
         <h1>Delete account
         </h1>
-        <p>Deleting your account will remove all information from our App . this cannot be undone. </p>
-        <form action="">
+        <p style="padding: 8px;">Deleting your account will remove all information from our App . please Enter Email To cunfirm The Action . </p>
+        <form action="" onsubmit="deletAccount()">
             <input type="text" placeholder="Enter Your Email" style="padding: 6px;" name="del" id="del">
-            <input type="button" style="padding: 6px; " value="Delete Account">
+            <input type="button" style="padding: 6px;" onclick="deletAccount()" value="Delete Account">
         </form>
     </div>
 </body>
